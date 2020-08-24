@@ -23,17 +23,3 @@ services:
       reaction:
     ports:
       - "3000:3000"
-
-  mongo:
-    image: mongo:4.2.0
-    command: mongod --oplogSize 128 --replSet rs0 --storageEngine=wiredTiger
-    networks:
-      default:
-      reaction:
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongo-db4:/data/db
-
-volumes:
-  mongo-db4:
