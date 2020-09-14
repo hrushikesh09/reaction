@@ -37,6 +37,7 @@ import registerSimplePricingPlugin from "./plugins/simple-pricing/index.js";
 import registerSimpleSchemaPlugin from "./plugins/simple-schema/index.js";
 import registerSMTPEmailPlugin from "./plugins/email-smtp/index.js";
 import registerStripePaymentsPlugin from "./plugins/payments-stripe/index.js";
+import registerRazorpayPaymentsPlugin from "./plugins/payment-razorpay/index.js";
 import registerSurchargesPlugin from "./plugins/surcharges/index.js";
 import registerTaxesRatesPlugin from "./plugins/taxes-rates/index.js";
 import registerTestAddressValidationPlugin from "./plugins/address-validation-test/index.js";
@@ -126,6 +127,8 @@ export default async function registerPlugins(app) {
   await registerPaymentsPlugin(app); // REQUIRED
   await registerExamplePaymentsPlugin(app); // OPTIONAL
   await registerStripePaymentsPlugin(app); // OPTIONAL
+  await registerRazorpayPaymentsPlugin(app);
+
 
   /**
    * Discounts

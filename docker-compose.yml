@@ -13,7 +13,7 @@ networks:
 
 services:
   api:
-    image: reactioncommerce/reaction:3.5.0
+    image: hrushikesh09/reaction:latest
     env_file:
       - ./.env
     networks:

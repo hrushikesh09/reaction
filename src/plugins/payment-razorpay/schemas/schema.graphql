@@ -1,0 +1,25 @@
+"Data for razorpay payment"
+type RazorpayMethodPaymentData {
+  orderId: String!
+  customerId: String
+}
+
+extend enum PaymentMethodName {
+  "Razorpay payment method"
+  razorpay
+}
+
+extend union PaymentData = RazorpayMethodPaymentData
+
+extend type Query {
+  createOrder (
+    _id: ID!
+  ): RazorpayOrder
+}
+
+type RazorpayOrder {
+  _id: ID!
+  orderdetails: String
+}
+
+
