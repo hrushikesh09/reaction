@@ -13,7 +13,16 @@ extend union PaymentData = RazorpayMethodPaymentData
 
 extend type Query {
   createOrder (
-    _id: ID!
+    _id: ID!,
+    amount: String,
+    accountId: String,
+    fullName: String,
+    billingAddress: String,
+    currencyCode: String,
+    email: String,
+    shopId: String,
+    receipt: String,
+    notes: String
   ): RazorpayOrder
 }
 
@@ -21,5 +30,4 @@ type RazorpayOrder {
   _id: ID!
   orderdetails: String
 }
-
 

@@ -28,11 +28,15 @@ export default async function razorpayCreateAuthorizedPayment(context, input) {
 
   const razorpay = await getRazorpayInstanceForShop(context);
 
-  const razorpayCustomer = await razorpay.customer.create({ email, contact: accountId }); // TODO: change accountId to contact
-  const razorpayCustomerId = razorpayCustomer.id;
+  // handle customer data
+  // const razorpayCustomerExits = await razorpay.customers.fetch({
+
+  // })
+  // const razorpayCustomer = await razorpay.customers.create({ email }); // TODO: change accountId to contact
+  // const razorpayCustomerId = razorpayCustomer.id;
 
   // create orderId
-  const order = await razorpay.orders.create({ amount, currencyCode, receipt, notes });
+  const order = await razorpay.orders.create({ amount, receipt, notes });
 
 
   return {
@@ -43,7 +47,7 @@ export default async function razorpayCreateAuthorizedPayment(context, input) {
     data: {
       orderId: order.id,
       order,
-      customerId: razorpayCustomerId,
+      // customerId: razorpayCustomerId,
       gqlType: "RazorpayMethodPaymentData"
     },
     receipt,
