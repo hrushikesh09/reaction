@@ -15,15 +15,14 @@ const PROCESSOR = "razorpay";
  */
 export default async function razorpayCreateAuthorizedPayment(context, input) {
   const {
-    fullName,
     accountId,
     amount,
     billingAddress,
-    currencyCode,
     email,
     shopId,
-    receipt,
-    notes
+    paymentData: {
+      fullName
+    }
   } = input;
 
   const razorpay = await getRazorpayInstanceForShop(context);
@@ -36,7 +35,8 @@ export default async function razorpayCreateAuthorizedPayment(context, input) {
   // const razorpayCustomerId = razorpayCustomer.id;
 
   // create orderId
-  const order = await razorpay.orders.create({ amount, receipt, notes });
+  const razorpayAmount = amount * 100;
+  const order = await razorpay.orders.create({ amount: razorpayAmount });
 
 
   return {
@@ -50,8 +50,6 @@ export default async function razorpayCreateAuthorizedPayment(context, input) {
       // customerId: razorpayCustomerId,
       gqlType: "RazorpayMethodPaymentData"
     },
-    receipt,
-    notes,
     displayName: `razorpay from ${fullName}`,
     method: METHOD,
     mode: "authorize",
@@ -62,7 +60,6 @@ export default async function razorpayCreateAuthorizedPayment(context, input) {
     shopId,
     status: "created",
     transactionId: order.id,
-    transaction: [order]
+    transactions: [order]
   };
-
 }

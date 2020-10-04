@@ -97,6 +97,8 @@ async function createPayments({
     payments = await Promise.all(paymentPromises);
     payments = payments.filter((payment) => !!payment); // remove nulls
   } catch (error) {
+    Logger.info("createOrder: payments", payments);
+    Logger.info("createOrder: error", error);
     Logger.error("createOrder: error creating payments", error.message);
     throw new ReactionError("payment-failed", `There was a problem authorizing this payment: ${error.message}`);
   }

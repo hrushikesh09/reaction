@@ -13,17 +13,32 @@ extend union PaymentData = RazorpayMethodPaymentData
 
 extend type Query {
   createOrder (
-    _id: ID!,
-    amount: String,
-    accountId: String,
-    fullName: String,
-    billingAddress: String,
-    currencyCode: String,
-    email: String,
-    shopId: String,
-    receipt: String,
-    notes: String
+    _id: ID!
+    amount: String
+    accountId: String
+    billingAddress: String
+    email: String
+    shopId: String
+    paymentData: RazorpayPaymentData
   ): RazorpayOrder
+
+  listRefunds (
+    orderId: String!
+  ): RazorpayRefund
+
+  createRefund (
+    orderId: String!
+  ): RazorpayRefund
+
+  capturePayment (
+    orderId: String!
+  ): RazorpayRefund
+}
+
+input RazorpayPaymentData {
+  fullName: String
+  receipt: String
+  notes: String
 }
 
 type RazorpayOrder {
@@ -31,3 +46,7 @@ type RazorpayOrder {
   orderdetails: String
 }
 
+type RazorpayRefund {
+  _id: ID!
+  refundDetails: String
+}
