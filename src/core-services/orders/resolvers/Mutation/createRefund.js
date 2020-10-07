@@ -4,7 +4,7 @@ import { decodeOrderOpaqueId, decodePaymentOpaqueId } from "../../xforms/id.js";
  * @name Mutation/createRefund
  * @method
  * @memberof Payments/GraphQL
- * @summary resolver for the createRefund GraphQL mutation
+ * @summary resolver for the razorpayCreateRefund GraphQL mutation
  * @param {Object} _ - unused
  * @param {Object} args.input - an object of all mutation arguments that were sent by the client
  * @param {Object} args.input.amount - amount to refund

@@ -22,16 +22,18 @@ extend type Query {
     paymentData: RazorpayPaymentData
   ): RazorpayOrder
 
-  listRefunds (
+  razorpayListRefunds (
     orderId: String!
   ): RazorpayRefund
 
-  createRefund (
+  razorpayCreateRefund (
     orderId: String!
+    amount: Float!
   ): RazorpayRefund
 
-  capturePayment (
+  razorpayCapturePayment (
     orderId: String!
+    amount: Float!
   ): RazorpayRefund
 }
 

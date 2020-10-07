@@ -15,18 +15,31 @@ export default async function razorpayListRefunds(context, paymentMethod) {
 
   let paymentResult;
   let refundListResults;
+  const result = [];
 
   try {
     paymentResult = await razorpay.orders.fetchPayments(paymentMethod.transactionId);
-    if (paymentResult[0]) {
-      refundListResults = await razorpay.refunds.all({ payment_id: paymentResult[0].id });
+    if (paymentResult && paymentResult.items) {
+      refundListResults = await razorpay.refunds.all(paymentResult.items[0].id);
+      Logger.debug(refundListResults);
     }
   } catch (error) {
     Logger.info("Encountered an error when trying to list refunds", error.message);
   }
 
+  if (refundListResults && refundListResults.items) {
+    for (const item of refundListResults.items) {
+      result.push({
+        type: item.object,
+        amount: item.amount / 100,
+        currency: item.currency,
+        raw: item
+      });
+    }
+  }
+
   Logger.info("PAYMENT METHOD", paymentMethod);
   Logger.info("PAYMENTS: ", paymentResult);
   Logger.info("REFUND LISTS: ", refundListResults);
-  return [];
+  return result;
 }

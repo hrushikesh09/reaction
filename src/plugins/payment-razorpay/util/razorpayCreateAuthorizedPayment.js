@@ -1,6 +1,7 @@
 import Random from "@reactioncommerce/random";
 import { RAZORPAY_PACKAGE_NAME } from "./constants.js";
 import getRazorpayInstanceForShop from "./getRazorpayInstanceForShop.js";
+import formatForRazorpay from "./formatForRazorpay.js";
 
 const METHOD = "card";
 const PAYMENT_METHOD_NAME = "razorpay";
@@ -35,7 +36,7 @@ export default async function razorpayCreateAuthorizedPayment(context, input) {
   // const razorpayCustomerId = razorpayCustomer.id;
 
   // create orderId
-  const razorpayAmount = amount * 100;
+  const razorpayAmount = formatForRazorpay(amount);
   const order = await razorpay.orders.create({ amount: razorpayAmount });
 
 

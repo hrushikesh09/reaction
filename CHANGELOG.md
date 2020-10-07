@@ -884,7 +884,7 @@ Allows operators to change aa tag slug independently of a tag name.
 
 ### Order related GraphQL mutations
 
-A `createRefund` GraphQL mutation has been added to allow refunds to be processed via GraphQL in addition to the existing meteor methods.
+A `razorpayCreateRefund` GraphQL mutation has been added to allow refunds to be processed via GraphQL in addition to the existing meteor methods.
 
 ### Dataloaders introduced into the codebase
 
@@ -906,7 +906,7 @@ We've updated to using v2.0.0 of our [Reaction ESLint Config](https://github.com
 - feat(product table): show Action dropdown, even if no products are selected ([#5391](https://github.com/reactioncommerce/reaction/pull/5391))
 - feat: filter products by id in products table ([#5387](https://github.com/reactioncommerce/reaction/pull/5387))
 - feat: editable tag slug ([#5382](https://github.com/reactioncommerce/reaction/pull/5382))
-- feat: add createRefund GraphQL mutation ([#5354](https://github.com/reactioncommerce/reaction/pull/5354))
+- feat: add razorpayCreateRefund GraphQL mutation ([#5354](https://github.com/reactioncommerce/reaction/pull/5354))
 - feat: add handle to tag autosuggest results ([#5262](https://github.com/reactioncommerce/reaction/pull/5262))
 - feat: Add DataLoaders for Shops and SimpleInventory ([#5294](https://github.com/reactioncommerce/reaction/pull/5294))
 - feat: Introduce DataLoaders infrastructure ([#5280](https://github.com/reactioncommerce/reaction/pull/5280))
@@ -1362,7 +1362,7 @@ Additional PRs will be coming to remove other pieces of the storefront UI bit by
 
 ### Multiple Payment Support
 
-- All of the individual `placeOrder*` GraphQL mutations provided by the built-in payment plugins are removed and replaced with a single `placeOrder` mutation which supports multiple payments. Any custom payment method plugins will break due to the removal of `createOrder` internal mutation. Look at all changes. (#4908)
+- All of the individual `placeOrder*` GraphQL mutations provided by the built-in payment plugins are removed and replaced with a single `placeOrder` mutation which supports multiple payments. Any custom payment method plugins will break due to the removal of `razorpayCreateOrder` internal mutation. Look at all changes. (#4908)
 
 ### Surcharges
 
@@ -1879,8 +1879,8 @@ From #4622
 
 - Some Meteor methods are removed:
 
-  - cart/copyCartToOrder (replaced by createOrder mutation)
-  - cart/submitPayment (replaced by createOrder mutation)
+  - cart/copyCartToOrder (replaced by razorpayCreateOrder mutation)
+  - cart/submitPayment (replaced by razorpayCreateOrder mutation)
   - discounts/transaction
   - discounts/calculate
   - discounts/codes/credit (replaced by a function registered with the same name using functionsByType)
@@ -1912,7 +1912,7 @@ Previously client code would tell the server to "copy cart to order". Now, the o
 
 Related to this, payment information is now never stored on the cart. It is collected during checkout and sent with the placeOrder call. An order will only be placed if charges are successfully created using the provided payment details.
 
-The orders service is largely unaware of how payment is done, and there is no generic placeOrder mutation. Instead, plugins that provide payment methods are expected to provide GraphQL mutations that allow you to place and pay for an order using that method. Most of the logic is shared, and is encapsulated in a createOrder mutation that the orders plugin provides. But each payment method plugin wraps the createOrder mutation to handle payment specifics.
+The orders service is largely unaware of how payment is done, and there is no generic placeOrder mutation. Instead, plugins that provide payment methods are expected to provide GraphQL mutations that allow you to place and pay for an order using that method. Most of the logic is shared, and is encapsulated in a razorpayCreateOrder mutation that the orders plugin provides. But each payment method plugin wraps the razorpayCreateOrder mutation to handle payment specifics.
 
 All Meteor UI checkout code is updated to place orders using the new GraphQL mutations. The Meteor methods formerly involved in placing orders and payments are removed.
 

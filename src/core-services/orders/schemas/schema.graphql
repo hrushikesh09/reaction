@@ -924,7 +924,7 @@ type CancelOrderItemPayload {
   order: Order!
 }
 
-"Response payload for the createRefund mutation"
+"Response payload for the razorpayCreateRefund mutation"
 type CreateRefundPayload {
   "The same string you sent with the mutation params, for matching mutation calls with their responses"
   clientMutationId: String
