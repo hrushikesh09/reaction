@@ -5,7 +5,7 @@ import razorpayCreateAuthorizedPayment from "./util/razorpayCreateAuthorizedPaym
 import razorpayListRefunds from "./util/razorpayListRefunds.js";
 import razorpayCapturePayment from "./util/razorpayCapturePayment.js";
 import razorpayCreateRefund from "./util/razorpayCreateRefund.js";
-
+import { RAZORPAY_PACKAGE_NAME } from "./util/constants.js";
 /**
  * @summary Import and call this function to add this plugin to your API.
  * @param {ReactionAPI} app The ReactionAPI instance
@@ -14,7 +14,7 @@ import razorpayCreateRefund from "./util/razorpayCreateRefund.js";
 export default async function register(app) {
   await app.registerPlugin({
     label: "Razorpay",
-    name: "razorpay",
+    name: RAZORPAY_PACKAGE_NAME,
     queries,
     graphQL: {
       resolvers,
